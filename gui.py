@@ -21,10 +21,10 @@ list_box = sg.Listbox(values=functions.get_todos(),
 complete_button = sg.Button("Complete")
 exit_button = sg.Button("Exit")
 
-window = sg.Window('MY To_Do App', layout = [[clock_label],[label],
-                             [input_box, add_button],
-                             [list_box, edit_button, complete_button],
-                             [exit_button]     ],
+window = sg.Window('MY To_Do App', layout=[[clock_label], [label],
+                                           [input_box, add_button],
+                                           [list_box, edit_button, complete_button],
+                                           [exit_button]],
                    font=('Helvetica', 14))
 
 while True:
@@ -32,11 +32,11 @@ while True:
     window['clock'].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
     match event:
         case "Add":
-                todos = functions.get_todos()
-                new_todo = values['todo'] + "\n"
-                todos.append(new_todo)
-                functions.add_todos(todos)
-                window['todos'].update(values=todos)
+            todos = functions.get_todos()
+            new_todo = values['todo'] + "\n"
+            todos.append(new_todo)
+            functions.add_todos(todos)
+            window['todos'].update(values=todos)
 
         case 'Edit':
             try:
@@ -44,7 +44,7 @@ while True:
                 new_todo = values['todo'] + "\n"
                 todos = functions.get_todos()
                 index = todos.index(todos_to_edit)
-                todos[index] =new_todo
+                todos[index] = new_todo
                 functions.add_todos(todos)
                 window['todos'].update(values=todos)
             except IndexError:
@@ -59,13 +59,11 @@ while True:
                 window['todo'].update(value='')
             except IndexError:
                 sg.popup("Please First Select Item to Complete", font=("Helvetica", 14))
-
-        case "Exit":
-            break
         case "todos":
             window['todo'].update(value=values['todos'][0])
-
+        case "Exit":
+            break
         case sg.WINDOW_CLOSED:
-            exit()
+            break
 
 window.close()
